@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册</title>
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/login.css">
+</head>
+<body>
+    <div class="nav">
+        网络五子棋对战游戏
+    </div>
+    <div class="login-container">
+        <!-- 登录界面的对话框 -->
+        <div class="login-dialog">
+            <!-- 提示信息 -->
+            <h3>注册</h3>
+            <!-- 这个表示一行 -->
+            <div class="row">
+                <span>用户名</span>
+                <input type="text" id="user_name" name="username">
+            </div>
+            <!-- 这是另一行 -->
+            <div class="row">
+                <span>密码</span>
+                <input type="password" id="password" name="password">
+            </div>
+            <!-- 提交按钮 -->
+            <div class="row">
+                <button id="submit",onclick="reg()">提交</button>
+            </div>
+        </div>
+    </div> 
+
+    <script src="js/jquery.min.js"></script>
+    <script>
+        // 给按钮添加点击事件，向服务器提交注册信息
+        var btn = document.getElementById("submit");
+        btn.onclick = function(){
+            //获取用户名输入框数据，以及密码输入框数据
+            //组织一个json对象
+            var req = {
+                username: document.getElementById("user_name").value,
+                password: document.getElementById("password").value
+            }
+            //通过ajax向服务器发送请求
+            $.ajax({
+                type: "post",
+                url: "/reg",
+                data: JSON.stringify(req),
+                success: function(){
+                    alert("用户注册成功！");
+                    location.replace("login.html");
+                },
+                error: function(xhr){
+                    alert(JSON.stringify(xhr.responseText));
+                }
+            })
+        }
+    </script>
+</body>
+</html>
